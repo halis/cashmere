@@ -1,0 +1,56 @@
+#!/usr/bin/env node
+
+/* eslint-disable global-require */
+/* eslint-disable import/no-dynamic-require */
+
+require('babel-core/register');
+require('../src/cmd')();
+
+global.expect = require('chai').expect;
+global.freeze = require('deep-freeze-node');
+global.R = require('ramda');
+
+global.config = require('../src/config')();
+global.store = require('../src/store')();
+
+global.describe = require('../src/describe');
+global.context = require('../src/context');
+global.it = require('../src/it');
+global.done = require('../src/done');
+global.exit = require('../src/exit');
+
+global.xdescribe = () => null;
+global.xit = () => null;
+global.xcontext = () => null;
+
+global.test = require('../src/test');
+
+global.exitCode = 0;
+global.tests = {
+  total: 0,
+  pass: 0,
+  fail: 0,
+};
+
+const find = require('child_process').spawn(
+  'find', [process.cwd(), '-name', '*.test.js']
+);
+
+find.stdout.on('data', (data) => {
+  const files = data
+    .toString('utf8')
+    .split(/\n+/g)
+    .filter(x => /\/node_modules\//.test(x) === false)
+    .filter(x => x);
+
+  const runTests = file => require(file);
+  files.forEach(runTests);
+
+  exit();
+});
+
+find.stderr.on('data', (data) => {
+  console.info('Error finding test files');
+  console.info(data.toString('utf8'));
+  process.exit(1);
+});

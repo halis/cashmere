@@ -1,0 +1,26 @@
+{
+  "extends": "airbnb",
+  "rules": {
+    "comma-dangle": 0,
+    "import/no-unresolved": 0,
+    "import/no-extraneous-dependencies": 0,
+    "import/extensions": 0,
+    "no-unneeded-ternary": 0,
+    "no-console": ["error", { allow: ["info", "warn", "error", "trace"] }],
+    "react/jsx-filename-extension": 0
+  },
+  "globals": {
+    "expect": true,
+    "freeze": true,
+    "R": true,
+    "store": true,
+    "config": true,
+    "done": true,
+    "exit": true
+  },
+  "env": {
+    "mocha": true,
+    "browser": true,
+    "node": true
+  }
+}
