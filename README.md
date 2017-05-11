@@ -3,11 +3,14 @@ A javascript testing library.
 
 **Warning: Install at your own peril! This project is brand new and nowhere near ready!**
 
+**Note: As specified in engines, Node >=6.4.0 is required as ES6 Proxies are currently being used**
+
 Goals
 * Unit tests
 * Integration tests (probably selenium)
 * Mocha style describe/context/it
 * Experiment with different testing styles
+* Async tests are in progress but not implemented yet
 * Automatically compiles tests written in ES6
 * Snapshot tests not tied to React
 * Html-based snapshot tests for the integration tests
