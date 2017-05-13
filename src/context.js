@@ -1,7 +1,6 @@
 
 /* eslint-disable no-param-reassign */
 
-const { AssertionError } = require('chai');
 const chalk = require('chalk');
 const BASE_MARGIN = require('./baseMargin');
 
@@ -13,9 +12,6 @@ const context = (text, test) => {
     test();
   } catch (err) {
     global.exitCode = 1;
-    if (err instanceof AssertionError) {
-      console.info(chalk.red('Assertions are not allowed in "context" blocks'));
-    }
   }
 };
 

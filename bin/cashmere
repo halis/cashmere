@@ -13,6 +13,7 @@ global.R = require('ramda');
 global.config = require('../src/config')();
 global.store = require('../src/store')();
 
+global.request = require('axios');
 global.describe = require('../src/describe');
 global.context = require('../src/context');
 global.it = require('../src/it');
@@ -45,12 +46,9 @@ find.stdout.on('data', (data) => {
 
   const runTests = file => require(file);
   files.forEach(runTests);
-
-  exit();
 });
 
 find.stderr.on('data', (data) => {
   console.info('Error finding test files');
   console.info(data.toString('utf8'));
-  process.exit(1);
 });

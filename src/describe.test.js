@@ -5,7 +5,7 @@ describe('person', () => {
       expect({ hello: 'world' }).to.deep.equal({ hello: 'world' });
     });
 
-    it.async('Should get middle name', () => {
+    it('Should get middle name', () => {
       expect(1).to.equal(1);
     });
 

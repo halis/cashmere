@@ -5,23 +5,79 @@ A javascript testing library.
 
 **Note: As specified in engines, Node >=6.4.0 is required as ES6 Proxies are currently being used**
 
-Goals
+**Important: All test files must end in `.test.js`, the runner executes a find command with that extension**
+
+To install:
+
+`yarn add cashmere`<br />
+or<br />
+`npm install cashmere`<br />
+
+Here is an example of a test `person.test.js`:
+```javascript
+describe('person', () => {
+  context('#firstName()', () => {
+    it('Should get first name', () => {
+      expect({ hello: 'world' }).to.deep.equal({ hello: 'world' });
+    });
+
+    it('Should get middle name', () => {
+      expect(1).to.equal(1);
+    });
+  });
+});
+```
+
+Here is an example of an asynchronous test `websites.test.js`:
+```javascript
+describe('websites', () => {
+  it.async('google', (done) => {
+    request.get('https://www.google.com')
+      .then(res => {
+        expect(res).to.include({
+          status: 200,
+          statusText: 'OK',
+        });
+        done();
+      })
+      .catch(err => {
+        done(err);
+      });
+  });
+
+  it.async('facebook', (done) => {
+    request.get('https://www.facebook.com')
+      .then(res => {
+        expect(res.status).to.equal(200);
+        expect(res.statusText).to.equal('OK');
+        done();
+      })
+      .catch(err => {
+        done(err);
+      });
+  });
+});
+```
+
+Current Features
 * Unit tests
-* Integration tests (probably selenium)
 * Mocha style describe/context/it
-* Experiment with different testing styles
-* Async tests are in progress but not implemented yet
+* Async tests (brand new so use at your own peril)
 * Automatically compiles tests written in ES6
-* Snapshot tests not tied to React
-* Html-based snapshot tests for the integration tests
-* Performance, it runs the tests quickly
-* Setup a global Redux-like store and have access to it from every test
-* Output that makes it easy to debug whether locally or from a log on a CI server
 * No special unicode characters in test output that don't display correctly in CI servers
 * No hiding logging statements
 * Clean stack traces
 * Diff output
 
+Future Goals
+* Integration tests (probably selenium)
+* Snapshot tests not tied to React
+* Html-based snapshot tests for integration tests
+* Performance (may need parallel runs at some point)
+* Setup a global Redux-like store and have access to it from every test
+* Experiment with different testing styles
+
+Here is an example of the test runner output:
 ```bash
 person
  #firstName()
@@ -47,11 +103,11 @@ animal
    Received: 1
    Assertion error: expected 1 to equal 2
     at src/describe.test.js:63:20
-    at module.exports (src/it.js:8:5)
+    at it (src/it.js:46:5)
     at src/describe.test.js:62:5
-    at module.exports (src/context.js:10:5)
+    at context (src/context.js:12:5)
     at src/describe.test.js:37:3
-    at describe (src/describe.js:13:5)
+    at describe (src/describe.js:12:5)
     at Object.<anonymous> (src/describe.test.js:36:1)
   FAIL: Should be quiet
    Expected: {
@@ -69,10 +125,33 @@ animal
      }
    Assertion error: expected { hello: 'world' } to deeply equal { abc: '123' }
     at src/describe.test.js:67:42
-    at module.exports (src/it.js:8:5)
+    at it (src/it.js:46:5)
     at src/describe.test.js:66:5
-    at module.exports (src/context.js:10:5)
+    at context (src/context.js:12:5)
     at src/describe.test.js:37:3
-    at describe (src/describe.js:13:5)
+    at describe (src/describe.js:12:5)
     at Object.<anonymous> (src/describe.test.js:36:1)
+
+websites
+  PASS: google
+  PASS: facebook
+```
+
+Note: In the tests you DO NOT need to import the following:
+* describe
+* context
+* it
+* expect
+* request
+
+These are provided for you by default.<br />
+If you are using ESLint then put the following in your `.eslintrc`:
+```json
+  "globals": {
+    "expect": true,
+    "request": true
+  },
+  "env": {
+    "mocha": true
+  }
 ```
