@@ -14,10 +14,9 @@ global.config = require('../src/config')();
 global.store = require('../src/store')();
 
 global.request = require('axios');
-global.describe = require('../src/describe');
-global.context = require('../src/context');
-global.it = require('../src/it');
-global.done = require('../src/done');
+global.describe = require('../src/bdd/describe');
+global.context = require('../src/bdd/context');
+global.it = require('../src/bdd/it');
 global.exit = require('../src/exit');
 
 global.xdescribe = () => null;
@@ -31,6 +30,7 @@ global.tests = {
   total: 0,
   pass: 0,
   fail: 0,
+  async: 0,
 };
 
 const find = require('child_process').spawn(
@@ -46,6 +46,12 @@ find.stdout.on('data', (data) => {
 
   const runTests = file => require(file);
   files.forEach(runTests);
+
+  setTimeout(() => {
+    if (!global.tests.total && !global.tests.async) {
+      console.info('No tests found');
+    }
+  }, 500);
 });
 
 find.stderr.on('data', (data) => {

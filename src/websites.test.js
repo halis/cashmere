@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-expressions */
 /* eslint-disable arrow-parens */
 
-describe('websites', () => {
+describe.skip('websites', () => {
   it.async('google', (done) => {
     request.get('https://www.google.com')
       .then(res => {

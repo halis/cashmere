@@ -1,10 +1,13 @@
 /* eslint-disable no-param-reassign */
 
 const chalk = require('chalk');
-const BASE_MARGIN = require('./baseMargin');
+const BASE_MARGIN = require('../baseMargin');
+const usage = require('../usage');
 
 const skip = () => null;
 const describe = (text, test) => {
+  usage('describe', text, test);
+
   const leftMargin = BASE_MARGIN.repeat(BASE_MARGIN.length * 0);
   try {
     if (global.tests.total > 0) console.info();

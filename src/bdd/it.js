@@ -1,16 +1,18 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-constant-condition */
 
-const pass = require('./pass');
-const fail = require('./fail');
+const pass = require('../pass');
+const fail = require('../fail');
+const usage = require('../usage');
 
-let asyncCtr = 0;
 let finishedCtr = 0;
 const ids = [];
 const asyncFn = (text, test) => {
+  usage('describe', text, test);
+
   let finished = false;
   let error = null;
-  asyncCtr += 1;
+  global.tests.async += 1;
 
   const done = (_error) => {
     finished = true;
@@ -27,7 +29,7 @@ const asyncFn = (text, test) => {
         pass(text);
       }
 
-      if (asyncCtr === finishedCtr) {
+      if (global.tests.async === finishedCtr) {
         ids.forEach(clearInterval);
       }
     }
@@ -41,6 +43,8 @@ const asyncFn = (text, test) => {
 const skip = () => null;
 
 const it = (text, test) => {
+  usage('describe', text, test);
+
   try {
     global.tests.total += 1;
     test();
