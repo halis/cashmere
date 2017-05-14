@@ -23,7 +23,7 @@ global.xdescribe = () => null;
 global.xit = () => null;
 global.xcontext = () => null;
 
-global.test = require('../src/test');
+global.test = require('../src/classic/test');
 
 global.exitCode = 0;
 global.tests = {

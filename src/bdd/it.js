@@ -1,9 +1,9 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-constant-condition */
 
-const pass = require('../pass');
-const fail = require('../fail');
-const usage = require('../usage');
+const pass = require('./pass');
+const fail = require('./fail');
+const usage = require('./usage');
 
 let finishedCtr = 0;
 const ids = [];

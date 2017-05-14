@@ -2,8 +2,8 @@
 /* eslint-disable no-param-reassign */
 
 const chalk = require('chalk');
-const BASE_MARGIN = require('../baseMargin');
-const usage = require('../usage');
+const BASE_MARGIN = require('./baseMargin');
+const usage = require('./usage');
 
 const skip = () => null;
 const context = (text, test) => {
