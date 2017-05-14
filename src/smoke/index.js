@@ -1,28 +1,35 @@
 
 require('chromedriver');
+
+const path = require('path');
 const chalk = require('chalk');
 const webdriver = require('selenium-webdriver');
+const { snapshotsDir } = require('../snapshot/');
 global.cheerio = require('cheerio');
 
 global.By = webdriver.By;
 global.until = webdriver.until;
 
-global.driver = new webdriver.Builder()
+const startBrowser = () => new webdriver.Builder()
   .forBrowser('chrome')
   .setChromeOptions()
   .build();
 
-const catchHandler = (err) => {
+const catchHandler = browser => err => {
   console.info(chalk.red('There was an error. Shutting down selenium'));
-  driver.quit();
+  browser.quit();
 
   console.info(chalk.gray(err.stack));
   console.info();
 };
 
-const done = () => driver.quit();
+const done = browser => browser.quit();
 
+const getPath = name => path.join(snapshotsDir, name);
 module.exports = {
   catchHandler,
   done,
+  getPath,
+  snapshotsDir,
+  startBrowser,
 };

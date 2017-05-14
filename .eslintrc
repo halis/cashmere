@@ -1,6 +1,7 @@
 {
   "extends": "airbnb",
   "rules": {
+    "arrow-parens": 0,
     "comma-dangle": 0,
     "import/no-unresolved": 0,
     "import/no-extraneous-dependencies": 0,
@@ -14,7 +15,6 @@
     "cheerio": true,
     "config": true,
     "done": true,
-    "driver": true,
     "exit": true,
     "expect": true,
     "freeze": true,

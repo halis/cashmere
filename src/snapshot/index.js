@@ -4,6 +4,7 @@ const read = require('./read');
 const update = require('./update');
 const remove = require('./delete');
 const compare = require('./compare');
+const dir = require('./dir');
 
 module.exports = {
   create,
@@ -11,4 +12,5 @@ module.exports = {
   update,
   delete: remove,
   compare,
+  snapshotsDir: dir,
 };
