@@ -10,14 +10,18 @@
     "react/jsx-filename-extension": 0
   },
   "globals": {
+    "By": true,
+    "cheerio": true,
     "config": true,
     "done": true,
+    "driver": true,
     "exit": true,
     "expect": true,
     "freeze": true,
     "R": true,
     "request": true,
-    "store": true
+    "store": true,
+    "until": true
   },
   "env": {
     "mocha": true,

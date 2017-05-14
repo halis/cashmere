@@ -23,6 +23,9 @@
     "lines": "bin/lines.sh",
     "lint": "bin/lint.sh",
     "setup": "bin/setup.sh",
+    "smoke-setup": "docker pull selenium/standalone-chrome && docker run --name selenium -d -p 4444:4444 selenium/standalone-chrome",
+    "smoke-start": "docker start selenium",
+    "smoke-stop": "docker stop selenium",
     "test": "bin/cashmere"
   },
   "dependencies": {
@@ -35,13 +38,16 @@
     "babel-register": "^6.22.0",
     "chai": "^3.5.0",
     "chalk": "^1.1.3",
+    "cheerio": "^0.22.0",
     "commander": "^2.9.0",
     "deep-freeze-node": "^1.1.2",
     "jest-diff": "^20.0.0",
-    "ramda": "^0.23.0"
+    "ramda": "^0.23.0",
+    "selenium-webdriver": "^3.4.0"
   },
   "devDependencies": {
     "babel-eslint": "^6.1.2",
+    "chromedriver": "^2.29.0",
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^14.1.0",
     "eslint-plugin-import": "^2.2.0",
