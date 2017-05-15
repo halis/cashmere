@@ -6,24 +6,15 @@
 require('babel-core/register');
 require('../src/cmd')();
 
-global.expect = require('chai').expect;
 global.freeze = require('deep-freeze-node');
 global.R = require('ramda');
-
 global.config = require('../src/config')();
 global.store = require('../src/store')();
-
-global.request = require('axios');
-global.describe = require('../src/bdd/describe');
-global.context = require('../src/bdd/context');
-global.it = require('../src/bdd/it');
 global.exit = require('../src/exit');
-
-global.xdescribe = () => null;
-global.xit = () => null;
-global.xcontext = () => null;
-
 global.test = require('../src/classic/test');
+
+require('../src/smoke/');
+require('../src/bdd/');
 
 global.exitCode = 0;
 global.tests = {
@@ -33,28 +24,6 @@ global.tests = {
   async: 0,
 };
 
-const find = require('child_process').spawn(
-  'find', [process.cwd(), '-name', '*.test.js']
-);
+const runner = require('../src/runner');
 
-find.stdout.on('data', (data) => {
-  const files = data
-    .toString('utf8')
-    .split(/\n+/g)
-    .filter(x => /\/node_modules\//.test(x) === false)
-    .filter(x => x);
-
-  const runTests = file => require(file);
-  files.forEach(runTests);
-
-  setTimeout(() => {
-    if (!global.tests.total && !global.tests.async) {
-      console.info('No tests found');
-    }
-  }, 500);
-});
-
-find.stderr.on('data', (data) => {
-  console.info('Error finding test files');
-  console.info(data.toString('utf8'));
-});
+runner('*.test.js');

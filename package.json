@@ -1,6 +1,6 @@
 {
   "name": "cashmere",
-  "version": "0.2.5",
+  "version": "0.3.4",
   "description": "A javascript testing library",
   "main": "cashmere",
   "bin": {
@@ -26,6 +26,7 @@
     "smoke-setup": "docker pull selenium/standalone-chrome && docker run --name selenium -d -p 4444:4444 selenium/standalone-chrome",
     "smoke-start": "docker start selenium",
     "smoke-stop": "docker stop selenium",
+    "smoke-uninstall": "docker rm -f selenium && docker rmi selenium/standalone-chrome",
     "test": "bin/cashmere"
   },
   "dependencies": {

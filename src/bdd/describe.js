@@ -11,7 +11,8 @@ const describe = (text, test) => {
   const leftMargin = BASE_MARGIN.repeat(BASE_MARGIN.length * 0);
   try {
     if (global.tests.total > 0) console.info();
-    console.info(chalk.cyan(`${leftMargin}${text}`));
+    console.info(chalk.bold('UNIT TEST'));
+    console.info(chalk.cyan(` ${leftMargin}${text}`));
     test();
   } catch (err) {
     global.exitCode = 1;

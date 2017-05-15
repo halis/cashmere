@@ -1,5 +1,5 @@
 
-describe('person', () => {
+describe.skip('person', () => {
   context('#firstName()', () => {
     it('Should get first name', () => {
       expect({ hello: 'world' }).to.deep.equal({ hello: 'world' });
@@ -33,7 +33,7 @@ describe('person', () => {
   });
 });
 
-describe.skip('animal', () => {
+describe('animal', () => {
   context('#run()', () => {
     it('Test #1', () => {
       expect(1).to.deep.equal(1);

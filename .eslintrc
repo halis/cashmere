@@ -12,14 +12,14 @@
   },
   "globals": {
     "By": true,
-    "cheerio": true,
     "config": true,
-    "done": true,
     "exit": true,
     "expect": true,
     "freeze": true,
     "R": true,
     "request": true,
+    "smoke": true,
+    "snapshot": true,
     "store": true,
     "until": true
   },

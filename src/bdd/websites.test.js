@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-expressions */
 
-describe.skip('websites', () => {
+describe('websites', () => {
   it.async('google', (done) => {
     request.get('https://www.google.com')
       .then(res => {

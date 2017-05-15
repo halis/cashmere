@@ -1,5 +1,5 @@
 
-describe('context', () => {
+describe.skip('context', () => {
   it('Should fail if not supplied correct args', () => {
     expect(context).to.throw(Error);
     expect(() => context('hello')).to.throw(Error);

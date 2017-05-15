@@ -9,7 +9,7 @@ const newPath = path.join(process.cwd(), './src/snapshot/hello.new.snapshot');
 const oldContent = 'Hello, world';
 const newContent = 'Yolo for real';
 
-describe('snapshot', () => {
+describe.skip('snapshot', () => {
   context('#create()', () => {
     it('Should create the snapshot file', () => {
       snapshot.create(oldPath, oldContent);

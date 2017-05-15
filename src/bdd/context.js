@@ -11,7 +11,7 @@ const context = (text, test) => {
 
   const leftMargin = BASE_MARGIN.repeat(BASE_MARGIN.length * 1);
   try {
-    console.info(chalk.yellow(`${leftMargin}${text}`));
+    console.info(chalk.yellow(` ${leftMargin}${text}`));
     test();
   } catch (err) {
     global.exitCode = 1;

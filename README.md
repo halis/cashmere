@@ -3,7 +3,7 @@ A javascript testing library.
 
 **Warning: Install at your own peril! This project is brand new and nowhere near ready!**
 
-**Note: As specified in engines, Node >=6.4.0 is required as ES6 Proxies are currently being used**
+*Note: As specified in engines, Node >=6.4.0 is required as ES6 Proxies are currently being used*
 
 **Important: All test files must end in `.test.js`, the runner executes a find command with that extension**
 
@@ -12,6 +12,14 @@ To install:
 `yarn add cashmere`<br />
 or<br />
 `npm install cashmere`<br />
+
+If you are interested in running browser based smoke tests via selenium then also run:<br />
+`npm run smoke-setup`<br />
+
+**Warning: For this command to work you must have docker installed, as it pulls a docker image with selenium and starts it**
+
+To install docker on Mac:
+https://store.docker.com/editions/community/docker-ce-desktop-mac
 
 Here is an example of a test `person.test.js`:
 ```javascript
@@ -59,6 +67,42 @@ describe('websites', () => {
 });
 ```
 
+Here is an example of a browser smoke test `google.test.js`:
+```javascript
+smoke('Google', browser => {
+  const url = 'https://www.google.com/ncr';
+  browser.get(url);
+
+  browser.findElement(By.name('q')).sendKeys('webdriver');
+  browser.findElement(By.name('btnG')).click();
+  browser.wait(until.titleIs('webdriver - Google Search'), 5000);
+
+  snapshot({
+    browser,
+    url,
+    selector: '#lst-ib',
+    name: 'search-results',
+  });
+
+  browser.quit();
+});
+```
+
+**Note: If the smoke tests fail to run then it's possible selenium isn't setup**
+
+To setup selenium run:<br />
+`npm run smoke-setup`<br />
+This will download a docker image with selenium, create a container and start it
+
+To start selenium manually:<br />
+`npm run smoke-start`
+
+To stop selenium manually:<br />
+`npm run smoke-stop`
+
+And to uninstall selenium:<br />
+`npm run smoke-uninstall`
+
 Current Features
 * Unit tests
 * Mocha style describe/context/it
@@ -68,48 +112,38 @@ Current Features
 * No hiding logging statements
 * Clean stack traces
 * Diff output
+* Smoke tests (requires docker to start selenium)
+* Html-based snapshot tests for smoke tests
 
 Future Goals
-* Integration tests (probably selenium)
-* Snapshot tests not tied to React
-* Html-based snapshot tests for integration tests
+* Snapshot tests not tied to React (currently tied to selenium, but will be genericized)
 * Performance (may need parallel runs at some point)
 * Setup a global Redux-like store and have access to it from every test
 * Experiment with different testing styles
 
 Here is an example of the test runner output:
 ```bash
-person
- #firstName()
-  PASS: Should get first name
-  PASS: Should get middle name
-  PASS: Should get last name
-  PASS: Should get age
-  PASS: Should get kids
- #lastName()
-  PASS: Should get middle name
-  PASS: Should get last name
-
-animal
- #run()
-  PASS: Test #1
-  PASS: Test #2
-  PASS: Test #3
-  PASS: Test #4
-  PASS: Test #5
-  PASS: Test #6
-  FAIL: Should be fast
+UNIT TEST
+ animal
+  #run()
+   PASS: Test #1
+   PASS: Test #2
+   PASS: Test #3
+   PASS: Test #4
+   PASS: Test #5
+   PASS: Test #6
+   FAIL: Should be fast
    Expected: 2
    Received: 1
    Assertion error: expected 1 to equal 2
-    at src/describe.test.js:63:20
-    at it (src/it.js:46:5)
-    at src/describe.test.js:62:5
-    at context (src/context.js:12:5)
-    at src/describe.test.js:37:3
-    at describe (src/describe.js:12:5)
-    at Object.<anonymous> (src/describe.test.js:36:1)
-  FAIL: Should be quiet
+    at src/bdd/person.test.js:63:20
+    at it (src/bdd/it.js:50:5)
+    at src/bdd/person.test.js:62:5
+    at context (src/bdd/context.js:15:5)
+    at src/bdd/person.test.js:37:3
+    at describe (src/bdd/describe.js:16:5)
+    at Object.<anonymous> (src/bdd/person.test.js:36:1)
+   FAIL: Should be quiet
    Expected: {
      "abc": "123"
    }
@@ -124,17 +158,23 @@ animal
    +   "hello": "world",
      }
    Assertion error: expected { hello: 'world' } to deeply equal { abc: '123' }
-    at src/describe.test.js:67:42
-    at it (src/it.js:46:5)
-    at src/describe.test.js:66:5
-    at context (src/context.js:12:5)
-    at src/describe.test.js:37:3
-    at describe (src/describe.js:12:5)
-    at Object.<anonymous> (src/describe.test.js:36:1)
+    at src/bdd/person.test.js:67:42
+    at it (src/bdd/it.js:50:5)
+    at src/bdd/person.test.js:66:5
+    at context (src/bdd/context.js:15:5)
+    at src/bdd/person.test.js:37:3
+    at describe (src/bdd/describe.js:16:5)
+    at Object.<anonymous> (src/bdd/person.test.js:36:1)
 
-websites
-  PASS: google
-  PASS: facebook
+UNIT TEST
+ websites
+   PASS: google
+   PASS: facebook
+
+SMOKE TEST
+ url: https://www.google.com/ncr
+  selector: #lst-ib
+   PASS: Snapshot search-results looks good
 ```
 
 Note: In the tests you DO NOT need to import the following:
@@ -143,8 +183,13 @@ Note: In the tests you DO NOT need to import the following:
 * it
 * expect
 * request
+* smoke
+* snapshot
+* By
+* until
 
-These are provided for you by default.<br />
+These are provided for you by default.
+
 If you are using ESLint then put the following in your `.eslintrc`:
 ```json
   "globals": {
@@ -155,3 +200,5 @@ If you are using ESLint then put the following in your `.eslintrc`:
     "mocha": true
   }
 ```
+
+*Note: This all works on Mac right now, Windows support could be added at some point*
