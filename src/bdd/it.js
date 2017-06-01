@@ -1,6 +1,7 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-constant-condition */
 
+const chalk = require('chalk');
 const pass = require('./pass');
 const fail = require('./fail');
 const usage = require('./usage');
@@ -26,7 +27,7 @@ const asyncFn = (text, test) => {
       if (error) {
         fail(error, text);
       } else {
-        pass(text);
+        pass(`${text} ${chalk.italic('(async test)')}`);
       }
 
       if (global.tests.async === finishedCtr) {
@@ -41,7 +42,6 @@ const asyncFn = (text, test) => {
 };
 
 const skip = () => null;
-
 const it = (text, test) => {
   usage('describe', text, test);
 
@@ -56,12 +56,8 @@ const it = (text, test) => {
 
 const handler = {
   get: (target, key) => {
-    if (key === 'async') {
-      return asyncFn;
-    }
-    if (key === 'skip') {
-      return skip;
-    }
+    if (key === 'async') return asyncFn;
+    if (key === 'skip') return skip;
     return it;
   },
   set: (target, key, value) => {

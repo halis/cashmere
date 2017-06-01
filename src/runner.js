@@ -15,6 +15,16 @@ const runner = (fileGlob) => {
 
     const runTests = file => require(file);
     files.forEach(runTests);
+
+    const runQueue = queue => queue.forEach(x => {
+      describe.run(x.text, x.test);
+    });
+
+    if (global.queue.describe.only.length) {
+      runQueue(global.queue.describe.only);
+    } else {
+      runQueue(global.queue.describe.run);
+    }
   });
 
   find.stderr.on('data', (data) => {

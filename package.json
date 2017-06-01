@@ -44,7 +44,8 @@
     "deep-freeze-node": "^1.1.2",
     "jest-diff": "^20.0.0",
     "ramda": "^0.23.0",
-    "selenium-webdriver": "^3.4.0"
+    "selenium-webdriver": "^3.4.0",
+    "sharp": "^0.17.3"
   },
   "devDependencies": {
     "babel-eslint": "^6.1.2",

@@ -120,6 +120,8 @@ Future Goals
 * Performance (may need parallel runs at some point)
 * Setup a global Redux-like store and have access to it from every test
 * Experiment with different testing styles
+* Also interested in taking screenshots during integration tests and doing some perceptual diffs (or even diff the html and then render the output to easily see differences)
+* Probably need to store the output of asynchronous tests until done is called and then flush it all to the console at once
 
 Here is an example of the test runner output:
 ```bash

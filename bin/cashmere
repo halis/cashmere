@@ -12,6 +12,7 @@ global.config = require('../src/config')();
 global.store = require('../src/store')();
 global.exit = require('../src/exit');
 global.test = require('../src/classic/test');
+global.queue = require('../src/queue');
 
 require('../src/smoke/');
 require('../src/bdd/');
