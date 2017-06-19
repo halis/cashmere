@@ -1,6 +1,6 @@
 {
   "name": "cashmere",
-  "version": "0.3.9",
+  "version": "0.4.1",
   "description": "A javascript testing library",
   "main": "cashmere",
   "bin": {
@@ -50,8 +50,7 @@
     "react-addons-test-utils": "^15.6.0",
     "react-dom": "^15.6.1",
     "react-test-renderer": "^15.6.1",
-    "selenium-webdriver": "^3.4.0",
-    "sharp": "^0.17.3"
+    "selenium-webdriver": "^3.4.0"
   },
   "devDependencies": {
     "babel-eslint": "^6.1.2",

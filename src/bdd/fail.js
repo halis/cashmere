@@ -40,15 +40,24 @@ module.exports = (err, text) => {
 
     const isObject = R.is(Object);
     const isString = R.is(String);
-    const diffNew = (object1, object2) => diff(object1, object2)
-      .split(/\n+/g)
-      .map(x => `${prepareMargin}${x}`)
-      .join('\n');
+    const diffNew = (object1, object2) => {
+      const result = diff(object1, object2);
+      if (result) {
+        return result
+          .split(/\n+/g)
+          .map(x => `${prepareMargin}${x}`)
+          .join('\n');
+      }
+      return null;
+    };
 
     if (typeof err.expected === typeof err.actual) {
       if (isObject(err.expected) || isString(err.expected)) {
-        console.info(chalk.gray(`${prepareMargin}Diff:`));
-        console.info(diffNew(err.expected, err.actual));
+        const result = diffNew(err.expected, err.actual);
+        if (result) {
+          console.info(chalk.gray(`${prepareMargin}Diff:`));
+          console.info(result);
+        }
       }
     }
 
