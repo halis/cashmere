@@ -1,6 +1,8 @@
 /* eslint-disable global-require */
 /* eslint-disable import/no-dynamic-require */
 
+const fail = require('./bdd/fail');
+
 const runner = (fileGlob) => {
   const find = require('child_process').spawn(
     'find', [process.cwd(), '-name', fileGlob]
@@ -13,7 +15,13 @@ const runner = (fileGlob) => {
       .filter(x => /\/node_modules\//.test(x) === false)
       .filter(x => x);
 
-    const runTests = file => require(file);
+    const runTests = file => {
+      try {
+        require(file);
+      } catch (err) {
+        fail(err, err.message);
+      }
+    };
     files.forEach(runTests);
 
     const runQueue = queue => queue.forEach(x => {

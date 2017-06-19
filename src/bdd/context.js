@@ -4,6 +4,7 @@
 const chalk = require('chalk');
 const BASE_MARGIN = require('./baseMargin');
 const usage = require('./usage');
+const fail = require('./fail');
 
 const skip = () => null;
 const context = (text, test) => {
@@ -14,6 +15,7 @@ const context = (text, test) => {
     console.info(chalk.yellow(` ${leftMargin}${text}`));
     test();
   } catch (err) {
+    fail(err, err.message);
     global.exitCode = 1;
   }
 };

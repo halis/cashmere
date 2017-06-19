@@ -3,6 +3,7 @@
 const chalk = require('chalk');
 const BASE_MARGIN = require('./baseMargin');
 const usage = require('./usage');
+const fail = require('./fail');
 
 const skip = () => null;
 
@@ -22,6 +23,7 @@ const run = (text, test) => {
     console.info(chalk.cyan(` ${leftMargin}${text}`));
     test();
   } catch (err) {
+    fail(err, err.message);
     global.exitCode = 1;
   }
 };
