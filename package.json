@@ -23,15 +23,11 @@
     "lines": "bin/lines.sh",
     "lint": "bin/lint.sh",
     "setup": "bin/setup.sh",
-    "smoke-setup": "docker pull selenium/standalone-chrome && docker run --name selenium -d -p 4444:4444 selenium/standalone-chrome",
-    "smoke-start": "docker start selenium",
-    "smoke-stop": "docker stop selenium",
-    "smoke-uninstall": "docker rm -f selenium && docker rmi selenium/standalone-chrome",
     "test": "bin/cashmere"
   },
   "dependencies": {
-    "axios": "^0.16.1",
     "babel-core": "^6.14.0",
+    "babel-eslint": "^6.1.2",
     "babel-polyfill": "^6.22.0",
     "babel-preset-es2015": "^6.22.0",
     "babel-preset-react": "^6.22.0",
@@ -47,19 +43,16 @@
     "jest-diff": "^20.0.0",
     "jsdom": "9.9.1",
     "ramda": "^0.23.0",
+    "react": "^15.5.4",
     "react-addons-test-utils": "^15.6.0",
     "react-dom": "^15.6.1",
-    "react-test-renderer": "^15.6.1",
-    "selenium-webdriver": "^3.4.0"
+    "react-test-renderer": "^15.6.1"
   },
   "devDependencies": {
-    "babel-eslint": "^6.1.2",
-    "chromedriver": "^2.29.0",
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^14.1.0",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^4.0.0",
-    "eslint-plugin-react": "^6.10.3",
-    "react": "^15.5.4"
+    "eslint-plugin-react": "^6.10.3"
   }
 }

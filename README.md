@@ -13,14 +13,6 @@ To install:
 or<br />
 `npm install cashmere`<br />
 
-If you are interested in running browser based smoke tests via selenium then also run:<br />
-`npm run smoke-setup`<br />
-
-**Warning: For this command to work you must have docker installed, as it pulls a docker image with selenium and starts it**
-
-To install docker on Mac:
-https://store.docker.com/editions/community/docker-ce-desktop-mac
-
 Here is an example of a test `person.test.js`:
 ```javascript
 describe('person', () => {
@@ -67,42 +59,6 @@ describe('websites', () => {
 });
 ```
 
-Here is an example of a browser smoke test `google.test.js`:
-```javascript
-smoke('Google', browser => {
-  const url = 'https://www.google.com/ncr';
-  browser.get(url);
-
-  browser.findElement(By.name('q')).sendKeys('webdriver');
-  browser.findElement(By.name('btnG')).click();
-  browser.wait(until.titleIs('webdriver - Google Search'), 5000);
-
-  snapshot({
-    browser,
-    url,
-    selector: '#lst-ib',
-    name: 'search-results',
-  });
-
-  browser.quit();
-});
-```
-
-**Note: If the smoke tests fail to run then it's possible selenium isn't setup**
-
-To setup selenium run:<br />
-`npm run smoke-setup`<br />
-This will download a docker image with selenium, create a container and start it
-
-To start selenium manually:<br />
-`npm run smoke-start`
-
-To stop selenium manually:<br />
-`npm run smoke-stop`
-
-And to uninstall selenium:<br />
-`npm run smoke-uninstall`
-
 Current Features
 * Unit tests
 * Mocha style describe/context/it
@@ -112,15 +68,11 @@ Current Features
 * No hiding logging statements
 * Clean stack traces
 * Diff output
-* Smoke tests (requires docker to start selenium)
-* Html-based snapshot tests for smoke tests
 
 Future Goals
-* Snapshot tests not tied to React (currently tied to selenium, but will be genericized)
 * Performance (may need parallel runs at some point)
 * Setup a global Redux-like store and have access to it from every test
 * Experiment with different testing styles
-* Also interested in taking screenshots during integration tests and doing some perceptual diffs (or even diff the html and then render the output to easily see differences)
 * Probably need to store the output of asynchronous tests until done is called and then flush it all to the console at once
 
 Here is an example of the test runner output:
@@ -172,11 +124,6 @@ UNIT TEST
  websites
    PASS: google
    PASS: facebook
-
-SMOKE TEST
- url: https://www.google.com/ncr
-  selector: #lst-ib
-   PASS: Snapshot search-results looks good
 ```
 
 Note: In the tests you DO NOT need to import the following:
@@ -185,8 +132,6 @@ Note: In the tests you DO NOT need to import the following:
 * it
 * expect
 * request
-* smoke
-* snapshot
 * By
 * until
 

@@ -30,7 +30,6 @@ global.navigator = {
   userAgent: 'node.js'
 };
 
-require('../src/smoke/');
 require('../src/bdd/');
 
 global.exitCode = 0;

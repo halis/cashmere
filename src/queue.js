@@ -8,5 +8,4 @@ module.exports = {
   describe: Object.assign(defaultQueue),
   context: Object.assign(defaultQueue),
   it: Object.assign(defaultQueue),
-  smoke: Object.assign(defaultQueue),
 };

@@ -1,29 +1,18 @@
-/* eslint-disable no-unused-expressions */
 
-describe.only('websites', () => {
-  it.async('google', (done) => {
-    request.get('https://www.google.com')
-      .then(res => {
-        expect(res).to.include({
-          status: 200,
-          statusText: 'OK',
-        });
-        done();
-      })
-      .catch(err => {
-        done(err);
-      });
+describe('websites', () => {
+  it.async('Facebook', done => {
+    request.get('https://www.facebook.com', (err, res) => {
+      expect(err).to.equal(null);
+      expect(res.statusCode).to.equal(200);
+      done();
+    });
   });
 
-  it.async('facebook', (done) => {
-    request.get('https://www.facebook.com')
-      .then(res => {
-        expect(res.status).to.equal(200);
-        expect(res.statusText).to.equal('OK');
-        done();
-      })
-      .catch(err => {
-        done(err);
-      });
+  it.async('Halis Technology', done => {
+    request.get('https://www.halistechnology.com', err => {
+      expect(err).to.not.equal(null);
+      expect(err).to.equal(null);
+      done();
+    });
   });
 });
