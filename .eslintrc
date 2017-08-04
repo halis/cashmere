@@ -17,7 +17,6 @@
     "expect": true,
     "freeze": true,
     "R": true,
-    "request": true,
     "store": true,
     "until": true
   },

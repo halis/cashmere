@@ -6,7 +6,7 @@ const leftMargin = BASE_MARGIN.repeat(BASE_MARGIN.length * 2);
 
 module.exports = (text) => {
   global.tests.pass += 1;
-  const label = chalk.bold(`${leftMargin} ${chalk.green('PASS:')}`);
+  const label = chalk.green.bold('PASS');
   const value = chalk.gray(text);
-  console.info(`${label} ${value}`);
+  console.info(`${leftMargin}${label} ${value}`);
 };

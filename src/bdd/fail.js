@@ -34,7 +34,10 @@ module.exports = (err, text) => {
     R.trim
   );
   if (err instanceof AssertionError) {
-    console.info(chalk.red.bold(`${leftMargin} FAIL: ${text}`));
+    const label = chalk.red.bold('FAIL');
+    const value = chalk.gray(text);
+    console.info(`${leftMargin}${label} ${value}`);
+
     console.info(chalk.green(`${leftMargin} Expected: ${prepare(err.expected)}`));
     console.info(chalk.red(`${leftMargin} Received: ${prepare(err.actual)}`));
 
@@ -61,12 +64,12 @@ module.exports = (err, text) => {
       }
     }
 
-    console.info(chalk.gray(`${leftMargin} Assertion error: ${err.message}`));
+    console.info(chalk.gray(`${leftMargin}  Assertion error: ${err.message}`));
     const stack = cleanStack(err.stack)
-      .map(x => `${leftMargin}  ${x}`);
+      .map(x => `${leftMargin}   ${x}`);
     console.info(chalk.gray(stack.join('\n')));
   } else {
-    console.info(chalk.red.bold(`${leftMargin} FAIL: ${text}`));
+    console.info(chalk.red.bold(`${leftMargin} FAIL ${text}`));
     console.info(chalk.gray(`${leftMargin} Uncaught exception: ${err.message}`));
     const stack = cleanStack(err.stack)
       .map(x => `${leftMargin}  ${x}`);

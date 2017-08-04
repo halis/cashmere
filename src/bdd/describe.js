@@ -1,7 +1,6 @@
 /* eslint-disable no-param-reassign */
 
 const chalk = require('chalk');
-const BASE_MARGIN = require('./baseMargin');
 const usage = require('./usage');
 const fail = require('./fail');
 
@@ -16,11 +15,9 @@ const only = push(global.queue.describe.only);
 
 const run = (text, test) => {
   usage('describe', text, test);
-  const leftMargin = BASE_MARGIN.repeat(BASE_MARGIN.length * 0);
   try {
     if (global.tests.total > 0) console.info();
-    console.info(chalk.bold('UNIT TEST'));
-    console.info(chalk.cyan(` ${leftMargin}${text}`));
+    console.info(chalk.cyan(text));
     test();
   } catch (err) {
     fail(err, err.message);

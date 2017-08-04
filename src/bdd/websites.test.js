@@ -1,6 +1,6 @@
 
 describe('websites', () => {
-  it.async('Facebook', done => {
+  it.async('Facebook', (done, request) => {
     request.get('https://www.facebook.com', (err, res) => {
       expect(err).to.equal(null);
       expect(res.statusCode).to.equal(200);
@@ -8,10 +8,9 @@ describe('websites', () => {
     });
   });
 
-  it.async('Halis Technology', done => {
+  it.async('Halis Technology', (done, request) => {
     request.get('https://www.halistechnology.com', err => {
       expect(err).to.not.equal(null);
-      expect(err).to.equal(null);
       done();
     });
   });

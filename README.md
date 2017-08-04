@@ -31,7 +31,7 @@ describe('person', () => {
 Here is an example of an asynchronous test `websites.test.js`:
 ```javascript
 describe('websites', () => {
-  it.async('google', (done) => {
+  it.async('google', (done, request) => {
     request.get('https://www.google.com')
       .then(res => {
         expect(res).to.include({
@@ -45,7 +45,7 @@ describe('websites', () => {
       });
   });
 
-  it.async('facebook', (done) => {
+  it.async('facebook', (done, request) => {
     request.get('https://www.facebook.com')
       .then(res => {
         expect(res.status).to.equal(200);
@@ -75,57 +75,6 @@ Future Goals
 * Experiment with different testing styles
 * Probably need to store the output of asynchronous tests until done is called and then flush it all to the console at once
 
-Here is an example of the test runner output:
-```bash
-UNIT TEST
- animal
-  #run()
-   PASS: Test #1
-   PASS: Test #2
-   PASS: Test #3
-   PASS: Test #4
-   PASS: Test #5
-   PASS: Test #6
-   FAIL: Should be fast
-   Expected: 2
-   Received: 1
-   Assertion error: expected 1 to equal 2
-    at src/bdd/person.test.js:63:20
-    at it (src/bdd/it.js:50:5)
-    at src/bdd/person.test.js:62:5
-    at context (src/bdd/context.js:15:5)
-    at src/bdd/person.test.js:37:3
-    at describe (src/bdd/describe.js:16:5)
-    at Object.<anonymous> (src/bdd/person.test.js:36:1)
-   FAIL: Should be quiet
-   Expected: {
-     "abc": "123"
-   }
-   Received: {
-     "hello": "world"
-   }
-   Diff:
-   - Expected
-   + Received
-     Object {
-   -   "abc": "123",
-   +   "hello": "world",
-     }
-   Assertion error: expected { hello: 'world' } to deeply equal { abc: '123' }
-    at src/bdd/person.test.js:67:42
-    at it (src/bdd/it.js:50:5)
-    at src/bdd/person.test.js:66:5
-    at context (src/bdd/context.js:15:5)
-    at src/bdd/person.test.js:37:3
-    at describe (src/bdd/describe.js:16:5)
-    at Object.<anonymous> (src/bdd/person.test.js:36:1)
-
-UNIT TEST
- websites
-   PASS: google
-   PASS: facebook
-```
-
 Note: In the tests you DO NOT need to import the following:
 * describe
 * context
@@ -140,8 +89,7 @@ These are provided for you by default.
 If you are using ESLint then put the following in your `.eslintrc`:
 ```json
   "globals": {
-    "expect": true,
-    "request": true
+    "expect": true
   },
   "env": {
     "mocha": true
