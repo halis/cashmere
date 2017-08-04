@@ -3,9 +3,11 @@ A javascript testing library.
 
 **Warning: Install at your own peril! This project is brand new and nowhere near ready!**
 
+**Important: All test files must end in `.test.js`, the runner executes a find command with that extension**
+
 *Note: As specified in engines, Node >=6.4.0 is required as ES6 Proxies are currently being used*
 
-**Important: All test files must end in `.test.js`, the runner executes a find command with that extension**
+*Note: If you run the tests for cashmere, some of them fail intentionally to show FAIL output*
 
 To install:
 
@@ -28,36 +30,31 @@ describe('person', () => {
 });
 ```
 
+Note that you don't have to import anything, including `expect`.
+
 Here is an example of an asynchronous test `websites.test.js`:
 ```javascript
 describe('websites', () => {
-  it.async('google', (done, request) => {
-    request.get('https://www.google.com')
-      .then(res => {
-        expect(res).to.include({
-          status: 200,
-          statusText: 'OK',
-        });
-        done();
-      })
-      .catch(err => {
-        done(err);
-      });
+  it.async('Facebook', (done, request) => {
+    request.get('https://www.facebook.com', (err, res) => {
+      expect(err).to.equal(null);
+      expect(res.statusCode).to.equal(200);
+      done();
+    });
   });
 
-  it.async('facebook', (done, request) => {
-    request.get('https://www.facebook.com')
-      .then(res => {
-        expect(res.status).to.equal(200);
-        expect(res.statusText).to.equal('OK');
-        done();
-      })
-      .catch(err => {
-        done(err);
-      });
+  it.async('Halis Technology', (done, request) => {
+    request.get('https://www.halistechnology.com', (err, res) => {
+      expect(err).to.equal(null);
+      expect(res.statusCode).to.equal(200);
+      done();
+    });
   });
 });
 ```
+
+For async tests it's `it.async` instead of `it`.
+Note that you don't have to import anything, including `request`.
 
 Current Features
 * Unit tests

@@ -9,8 +9,9 @@ describe('websites', () => {
   });
 
   it.async('Halis Technology', (done, request) => {
-    request.get('https://www.halistechnology.com', err => {
-      expect(err).to.not.equal(null);
+    request.get('https://www.halistechnology.com', (err, res) => {
+      expect(err).to.equal(null);
+      expect(res.statusCode).to.equal(200);
       done();
     });
   });
