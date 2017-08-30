@@ -58,13 +58,5 @@ describe('animal', () => {
     it('Test #6', () => {
       expect(1).to.deep.equal(1);
     });
-
-    it('Should be fast', () => {
-      expect(1).to.equal(2);
-    });
-
-    it('Should be quiet', () => {
-      expect({ hello: 'world' }).to.deep.equal({ abc: '123' });
-    });
   });
 });
