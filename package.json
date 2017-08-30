@@ -1,6 +1,6 @@
 {
   "name": "cashmere",
-  "version": "0.4.4",
+  "version": "0.4.7",
   "description": "A javascript testing library",
   "main": "cashmere",
   "bin": {
@@ -23,7 +23,8 @@
     "lines": "bin/lines.sh",
     "lint": "bin/lint.sh",
     "setup": "bin/setup.sh",
-    "test": "bin/cashmere"
+    "test": "bin/cashmere",
+    "untested": "node bin/untested"
   },
   "dependencies": {
     "babel-core": "^6.14.0",
